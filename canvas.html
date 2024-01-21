@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Drawing</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            height: 100vh;
+            margin: 0;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+        }
+
+        #toolBar {
+            display: flex;
+            justify-content: flex-start;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        button {
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="toolBar">
+        <button id="saveButton">Save</button>
+        <button id="pencilButton">Pencil</button>
+        <button id="eraserButton">Eraser</button>
+        <button id="cleanButton">Clean</button>
+    </div>
+
+    <canvas id="myCanvas" width="700" height="500"></canvas>
+
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var context = canvas.getContext("2d");
+        var isDrawing = false;
+        var drawmode = 'pencil'; 
+
+        canvas.addEventListener("mousedown", startDrawing);
+        canvas.addEventListener("mousemove", draw);
+        canvas.addEventListener("mouseup", stopDrawing);
+
+        var eraserButton = document.getElementById("eraserButton");
+        eraserButton.addEventListener("click", toggleEraserMode);
+
+        var pencilButton = document.getElementById("pencilButton");
+        pencilButton.addEventListener("click", togglePencilMode);
+
+        var cleanButton = document.getElementById("cleanButton");
+        cleanButton.addEventListener("click", cleanCanvas);
+
+        var saveButton = document.getElementById("saveButton");
+        saveButton.addEventListener("click", saveCanvas);
+
+        function startDrawing() {
+            isDrawing = true;
+        }
+
+        function draw() {
+            if (!isDrawing) return;
+
+            context.lineWidth = drawmode == 'eraser' ? 20 : 5; 
+            context.lineCap = "round";
+            context.strokeStyle = drawmode == 'eraser' ? "white" : "black";  
+
+            context.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+            context.stroke();
+            context.beginPath();
+            context.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            context.beginPath();
+        }
+
+        function toggleEraserMode() {
+            drawmode = 'eraser';
+        }
+
+        function togglePencilMode() {
+            drawmode = 'pencil';
+        }
+
+        function cleanCanvas() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function saveCanvas() {
+            // 设置混合模式为'destination-over'
+            context.globalCompositeOperation = 'destination-over';
+            context.fillStyle = "white";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            var dataURL = canvas.toDataURL();
+            var a = document.createElement('a');
+            
+            a.href = dataURL;
+            a.download = 'canvas.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            // 恢复混合模式为默认值
+            context.globalCompositeOperation = 'source-over';
+        }
+
+    </script>
+</body>
+</html>
