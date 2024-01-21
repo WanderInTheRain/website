@@ -1,30 +1,45 @@
-# Canvas Drawing App
+# Web Application - Dialog and Canvas Drawing
 
-This simple web application allows users to draw on a canvas using a pencil or an eraser. The drawings can be saved as an image.
+This web application is a simple interactive tool that includes a dialog feature and a canvas for drawing.
 
-## Features
+## Dialog
 
-- Pencil Mode: Draw on the canvas using a pencil.
-- Eraser Mode: Erase drawings on the canvas.
-- Clean: Clear the entire canvas.
-- Save: Save the canvas drawing as an image.
+### Features
+- Users can view previous dialog records.
+- Navigate to the "Add Dialog" page to add new dialog entries.
+- Dialog records persist even if the user closes the browser.
 
-## Usage
+### How to Use
+1. Open the application to view existing dialog records.
+2. Click the "Add Dialog" button to navigate to the page for adding new dialog entries.
+3. On the add dialog page, enter the title and content of the dialog and click Save.
+4. Return to the main page to see the newly added dialog in the records.
 
-1. Open `index.html` in a web browser.
-2. Use the toolbar buttons to select the drawing mode (pencil or eraser), clean the canvas, or save the drawing.
-3. When in pencil mode, click and drag on the canvas to draw.
-4. When in eraser mode, click and drag on the canvas to erase.
-5. Click the "Clean" button to clear the entire canvas.
-6. Click the "Save" button to save the drawing as an image.
+## Canvas Drawing
 
-## How to Run
+### Features
+- Provides a simple canvas area for users to draw.
+- Users can choose colors and brush sizes for drawing.
+- Drawing content can be saved or shared.
 
-Simply open the `index.html` file in a modern web browser.
+### How to Use
+1. Find the "Canvas" link on the main page and click to enter the Canvas drawing page.
+2. Use the mouse or touch device to draw on the canvas area.
+3. Choose different colors and brush sizes to change the drawing style.
+4. Click the "Save" button to save the drawing.
 
-## Technologies Used
+## Technical Implementation
 
-- HTML5
-- CSS3
-- JavaScript
+- The dialog feature uses HTML, CSS, and JavaScript, with data stored in the browser's localStorage.
+- Canvas drawing is implemented using HTML5 Canvas and JavaScript.
 
+## Installation and Run
+
+1. Clone the repository: `git clone https://github.com/your/repository.git`
+2. Open the `index.html` file to start the application.
+
+## Notes
+
+- Dialog records and Canvas drawing content will be saved in the browser. Clearing browser cache may result in data loss.
+
+Feedback and suggestions are welcome!
